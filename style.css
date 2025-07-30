@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    height: 600px;
+    border: 1px solid black;
+    flex-direction: column;
+}
+.row {
+    flex:1 1 auto;
+    display: flex;
+}
+.cell{
+    flex: 1 1 auto;
+    border: 1px solid black;
+    box-sizing: border-box;
+    background-color: white;
+}
+.cell:hover {
+    background-color: rgb(124, 142, 199);
+}
