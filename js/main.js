@@ -4,11 +4,8 @@ createGrid(gridSize);
 let cells=document.querySelectorAll('.cell');
 let resetButton=document.getElementById('reset');
 let sizeButton=document.getElementById('size');
-cells.forEach(cell => {
-    cell.addEventListener('mouseover', () => {
-        cell.style.backgroundColor = 'black';
-    });
-});
+sketch();
+
 resetButton.addEventListener('click', () => {
     cells.forEach(cell => {
         cell.style.backgroundColor = 'white';
@@ -24,6 +21,17 @@ sizeButton.addEventListener('click', () => {
     }
 });
 
+function sketch() {
+    
+    cells.forEach(cell => {
+        cell.addEventListener('mouseover', () => {
+            cell.style.backgroundColor = randomColor();
+            const hovered= document.querySelectorAll('.hovered');
+            hovered.forEach(h => h.style.backgroundColor=darkenColor(h.style.backgroundColor));
+            cell.classList.add('hovered');
+        });
+    });
+}
 function createGrid(size) {
     for(i=0;i<size;i++){
         let row=document.createElement('div');
@@ -43,9 +51,29 @@ function resetGrid() {
     document.body.appendChild(container);
     createGrid(gridSize);
     cells = document.querySelectorAll('.cell');
+    sketch()
+}
+function randomColor() {
+    return '#' + Math.floor(Math.random()*16777215).toString(16);
+}
+function progressiveDarkening() {
     cells.forEach(cell => {
         cell.addEventListener('mouseover', () => {
-            cell.style.backgroundColor = 'black';
+            let newColor = darkenColor(currentColor);
+
+            cell.style.backgroundColor = newColor;
+            currentColor = newColor;
         });
     });
+}
+function darkenColor(rgbColor) {
+    let color = rgbColor.match(/\d+/g);
+    if (color) {
+        color = color.map(c => Math.max(0, c - 20));
+        return `rgb(${color.join(',')})`;
+    }
+    return rgbColor; // Return original if no match
+}
+function isDark(){
+
 }
